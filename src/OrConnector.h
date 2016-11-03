@@ -9,7 +9,7 @@ class OrConnector : public Connectors {
     public:
         OrConnector() { }
         bool endOfLine() {
-            
+            return false; //not sure only if its impossible to end after an or
         }
 };
 

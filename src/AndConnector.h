@@ -9,7 +9,7 @@ class AndConnector : public Connectors {
     public:
         AndConnector() { }
         bool endOfLine() {
-            
+            return false; //not sure only if its impossible to end after an and
         }
 };
 

@@ -9,7 +9,10 @@ class Executables : public Input {
     public:
         Executables() { }
         bool endOfLine() {
-            
+            if(cmd.at(cmd.size()-1) == ";") {
+                return true;
+            }
+            return false;
         }
 };
 

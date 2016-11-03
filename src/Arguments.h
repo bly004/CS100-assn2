@@ -7,7 +7,10 @@ class Arguments : public Input {
     public:
         Arguments() { }
         bool endOfLine() {
-            
+            if(cmd.at(cmd.size()-1) == ";") {
+                return true;
+            }
+            return false;
         }
 };
 

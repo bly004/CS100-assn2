@@ -7,7 +7,10 @@ class Connectors : public Input {
     public:
         Connectors() { }
         bool endOfLine() {
-            
+            if(cmd.at(cmd.size()-1) == ";") {
+                return true;
+            }
+            return false;
         }
 };
 
