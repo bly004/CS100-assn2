@@ -13,3 +13,7 @@ cd test
 cd ..
 p
 clear
+cal
+date
+exit
+clear
