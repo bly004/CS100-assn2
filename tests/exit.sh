@@ -23,3 +23,5 @@ EOF
 ./a.out << EOF
 date || git --version ; cal && exit
 EOF
+
+#not sure how this works yet; got from a friend
