@@ -10,10 +10,13 @@ To install and run the rshell program:
 2. Change directory into the project
 
   `cd rshell`
-3. Create exeutables
+3. Switch branches
+
+  `git checkout hw2`
+4. Create exeutables
 
   `make`
-4. Execute rshell
+5. Execute rshell
 
   `bin/rshell`
   
