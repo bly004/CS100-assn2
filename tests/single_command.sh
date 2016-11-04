@@ -11,4 +11,5 @@ git status
 echo "going into test folder"
 cd test
 cd ..
+p
 clear

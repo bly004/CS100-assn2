@@ -23,9 +23,7 @@ int main() {
     
     Line* line = new Line(str);
     line->print();
-    ExecutableLine* exLine = new ExecutableLine(line);
-
-    exLine->execute();
+    line->execute();
 
     
     return 0;
