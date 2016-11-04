@@ -14,7 +14,7 @@ class Input {
         Input() { }
         Input(char* in) {
             input = in;
-            p
+            //p
         }
 };
 

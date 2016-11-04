@@ -18,33 +18,14 @@ using namespace std;
 
 int main() {
 
-    char* str;
-    
+    char str[100000];
     cin.getline( str, 100 );
-    Line* line(in);
-    ExecutableLine* exLine( line );
+    
+    Line* line = new Line(str);
+    line->print();
+    ExecutableLine* exLine = new ExecutableLine(line);
 
-    for(int i = 0; i < exLine.size(); ++i) {
-        if(pid == -1) {
-            perror("fork");
-            exit(1);
-        }
-        if ( pid == 0 ) //child
-        {
-            if ( execvp ( args[i], args) == -1 )//args[0]
-            {
-                perror ( "exec" );
-                exit(1);
-            }
-        }
-       if ( pid > 0 ) //parent
-       {
-            if ( wait(0) == -1 ) {
-                perror ( "wait" );
-                exit(1);
-            }
-        }
-    }
+    exLine->execute();
 
     
     return 0;
