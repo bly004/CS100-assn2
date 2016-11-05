@@ -1,116 +1,89 @@
-/*
-#include "AndConnector.h"
-#include "Arguments.h"
-#include "Connectors.h"
-#include "Executables.h"
-#include "Input.h"
-#include "InputComposite.h"
-#include "Line.h"
-#include "OrConnector.h"
-#include "Program.h"
-*/
 #include <iostream>
+#include <boost/foreach.hpp>
+#include <boost/tokenizer.hpp>
 #include <string>
-#include <cstdlib>
-#include <unistd.h>//fork, exec
+#include <vector>
+#include <sys/types.h>
+#include <sys/wait.h>
+#include <stdio.h>
+#include <unistd.h>
 #include <pwd.h>
-#include <sys/types.h>//wait
-#include <sys/wait.h>//wait
-#include <fstream>
-#include <stdio.h>//perror
-#include <cstring>//strtok
-
+#include <cstdlib>
 
 using namespace std;
+using namespace boost;
 
-
-int main() {
-    
-    //finding user login info
-    string user, info;
-    
-    char hostInfo[256];
-    struct passwd *u = getpwuid(getuid());
-    int h = gethostname(hostInfo, 256);
-    
-    if(u != 0 && h != -1) {
-        user = u->pw_name;
-        //info = hostInfo + "@" + user + "$ ";
-        info = hostInfo;
-        info.append("@");
-        info.append(user);
-        info.append("$");
-    } else {
-        info = "user@host_name$ ";
-    }
-    ////////////////////
-    //read input in from test file, fill str with it
-    char str[1000000];
-    //read from tests
-        //ifstream inFS;
-        //inFS.open( "tests.txt");
-        //inFS.getline(args, 10000000, '\0');
-        
-    cin.getline( str, 100 );//replace with test input somehow
-    char* cmd[1000];//any size?
-    cmd[0] = strtok( str , ";" );
-    int i = 1;
-    while( cmd[ i - 1 ] != NULL )
-    {
-        cmd[i] = strtok( NULL , ";" );
-        i++;
-    }
-    /*int z = 0;
-    while(cmd[z] != NULL) {
-        cout << cmd[z] << endl;
-        z++;
-    }*/
-    //get user input
-    //string ls = "ls";
-    char* args[ i - 1 ];//fill with real size
-    for(int y = 0; y < i - 1; ++y)
-    {
-        args[y] = cmd[y];
-        cout << args[y] << endl;
-    }
-    //args[0] = (char*)ls.c_str(); //fill with actual input
-    args[ i - 1 ] = NULL;//execvp needs this null to run correctly
-    
-    /*if ( execvp ( args[0], args) == -1 )
-    {
-        perror ( "exec" );
-    }*/
-    
-    for(int y = 0; y < i; ++y)
-    {
-    
-    pid_t pid = fork();
-    
-    if(pid == -1) {
-        perror("fork");
-        exit(1);
-    }
-    if ( pid == 0 ) //child
-    {
-        if ( execvp ( args[y], args) == -1 )//args[0]
-        {
-            perror ( "exec" );
-            exit(1);
+int main(int argc, char** argv) {
+    string input = "";
+    for(int i = 1; i < argc; i++) {//comment out if using user input
+        input += argv[i];//comment out if using user input
+    }//comment out for user input
+    cout << "$ " << input << endl;
+    pid_t pid;
+    //while(1) {//use this for user input
+        //cout << "$ ";//use this for user input
+        //getline(cin, input);//use this for user input instead of command line
+        typedef tokenizer<char_separator<char> > tokenizer;
+        char_separator<char> sep(";");
+        tokenizer tkn(input, sep);
+        for(tokenizer::iterator tok = tkn.begin(); tok != tkn.end(); tok++) {
+            char **ptr;
+            vector<char *> v;
+            if(v.empty() && (tok->compare("exit") == 0)) {
+                return 1;
+            }
+            if((tok->compare("&") == 0) && (tok->compare("|") == 0)) {
+                
+            } else if(tok->compare("&") == 0) {
+                
+            } else if(tok->compare("|") == 0) {
+                
+            } else {
+                string temp = *tok;
+                if(temp.find(" ") == 0) {
+                    temp.erase(0,1);
+                }
+                if(temp.find("#") != string::npos) {
+                    int index = temp.find("#");
+                    temp = temp.substr(0, index);
+                }
+                if(temp.find(" ") != string::npos) {
+                    char_separator<char> sep_2(" ");
+                    tokenizer tkn_2(temp, sep_2);
+                    for(tokenizer::iterator tok_2 = tkn_2.begin(); tok_2 != tkn_2.end(); tok_2++) {
+                        string temp_2 = *tok_2;
+                        char *temp_1 = new char[temp_2.size()];
+                        copy(temp_2.begin(), temp_2.end(), temp_1);
+                        v.push_back(temp_1);
+                    }
+                    v.push_back('\0');
+                    ptr = &v[0];
+                } else {
+                    char *temp_1 = new char[temp.size() + 1];
+                    copy(temp.begin(), temp.end(), temp_1);
+                    temp_1[temp.size()] = '\0';
+                    v.push_back(temp_1);
+                    ptr = &v[0];
+                }
+                pid = fork();
+                if(pid == -1) {
+                    return -1;
+                }
+                if(pid == 0) {
+                    if(execvp(ptr[0], ptr) == -1) {
+                        perror("Execvp Failed");
+                    }
+                    exit(1);
+                }
+                if(pid > 0) {
+                    if(wait(0) == -1) {
+                        perror("Wait");
+                        exit(1);
+                    }
+                }
+                ptr = NULL;
+                v.clear();
+            }
         }
-    }
-    if ( pid > 0 ) //parent
-    {
-        if ( wait(0) == -1 ) {
-            perror ( "wait" );
-            exit(1);
-        }
-        //cout << "end inside parent?" << endl;
-    }
-    
-    }
-    //cout << "end?" << endl;
-    
-    //cout << info << endl;
-    
-    return 0;
+    //}
 }

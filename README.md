@@ -30,4 +30,4 @@ To install and run the rshell program:
 * exiting the program requires the typing of `exit`
 
 ##Bugs and Limitations
-finish this later
+* Sometimes spaces can mess up parsing and result in a failed commmand

@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 #!/bin/sh
 
 CMD1=./bin/ls
@@ -35,3 +36,17 @@ printcmd "today's date in diff format:" "$DATE_CMD %b %d, %Y"
 printcmd "current time:" "$DATE_CMD %X"
 
 echo -e "\n# done testing\n"
+=======
+/home/ubuntu/workspace/src/a.out "ls"
+/home/ubuntu/workspace/src/a.out "ls -a"
+/home/ubuntu/workspace/src/a.out "ls -l"
+/home/ubuntu/workspace/src/a.out "echo \"this is a test\""
+/home/ubuntu/workspace/src/a.out "echo \"hello world\""
+/home/ubuntu/workspace/src/a.out "cal"
+/home/ubuntu/workspace/src/a.out "cal 7 2010"
+/home/ubuntu/workspace/src/a.out "date"
+/home/ubuntu/workspace/src/a.out "date +%D"
+/home/ubuntu/workspace/src/a.out "date +%b-%d-%Y"
+/home/ubuntu/workspace/src/a.out "date +%X"
+/home/ubuntu/workspace/src/a.out "ps"
+>>>>>>> exec
