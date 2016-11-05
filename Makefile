@@ -1,6 +1,6 @@
 all: rshell
 
-rshell: main.o
+rshell:
 	mkdir bin
 	g++ -Wall -Werror -ansi -pedantic main.o -o bin/rshell 
 
