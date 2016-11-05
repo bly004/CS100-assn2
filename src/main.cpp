@@ -15,14 +15,14 @@ using namespace boost;
 
 int main(int argc, char** argv) {
     string input = "";
-    for(int i = 1; i < argc; i++) {//comment out if using user input
+    /*for(int i = 1; i < argc; i++) {//comment out if using user input
         input += argv[i];//comment out if using user input
-    }//comment out for user input
-    cout << "$ " << input << endl;
+    }*///comment out for user input
+    //cout << "$ " << input << endl;
     pid_t pid;
-    //while(1) {//use this for user input
-        //cout << "$ ";//use this for user input
-        //getline(cin, input);//use this for user input instead of command line
+    while(1) {//use this for user input
+        cout << "$ ";//use this for user input
+        getline(cin, input);//use this for user input instead of command line
         typedef tokenizer<char_separator<char> > tokenizer;
         char_separator<char> sep(";");
         tokenizer tkn(input, sep);
@@ -85,5 +85,5 @@ int main(int argc, char** argv) {
                 v.clear();
             }
         }
-    //}
+    }
 }
