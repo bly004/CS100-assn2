@@ -2,7 +2,7 @@ all: rshell
 
 rshell: main.o
 	mkdir bin
-	g++ -Wall -Werror -ansi -pedantic main.o -o bin/rshell 
+	g++ -Wall -Werror -ansi -pedantic /src/main.cpp -o bin/rshell 
 
 clean: 
 	rm -f ./bin
