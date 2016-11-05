@@ -1,8 +1,8 @@
 all: rshell
 
-rshell: main.o
+rshell:
 	mkdir bin
-	g++ -Wall -Werror -ansi -pedantic /src/main.cpp -o bin/rshell 
+	g++ -Wall -Werror -ansi -pedantic ./src/main.cpp -o bin/rshell 
 
 clean: 
-	rm -f ./bin
+	rm -rf ./bin
