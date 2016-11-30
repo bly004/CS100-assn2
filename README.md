@@ -12,7 +12,7 @@ To install and run the rshell program:
   `cd rshell`
 3. Switch branches
 
-  `git checkout hw3`
+  `git checkout hw4`
 4. Create exeutables
 
   `make`
