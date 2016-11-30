@@ -130,7 +130,7 @@ bool run(string temp) {
     while(temp2.at(temp2.size() - 1) == ' ') {//changed
             temp2 = temp2.substr(0, temp2.size() - 1);
     }
-    if( temp2.find("test") != string::npos ) {
+    if( temp2.find("test") != string::npos && temp2.find("tests") == string::npos ) {
         /*while(temp2.at(temp2.size() - 1) == ' ') {//changed
             temp2 = temp2.substr(0, temp2.size() - 1);
         }*/
