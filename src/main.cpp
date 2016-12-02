@@ -172,9 +172,12 @@ bool execute(string temp) {
             string temp_2 = *tok_2;
             char *temp_1 = new char[temp_2.size()];
             copy(temp_2.begin(), temp_2.end(), temp_1);
+            temp_1[temp_2.size()] = '\0';//new added
             v.push_back(temp_1);
             i++;
             temp_last = temp_2;
+            temp_1 = NULL;//new added
+            delete temp_1;//new added
         }
         //v.push_back('\0');
         char *temp_3 = new char[temp_last.size() + 1];
@@ -183,13 +186,18 @@ bool execute(string temp) {
         v.pop_back();
         v.push_back(temp_3);
         ptr = &v[0];
+        temp_3 = NULL;//new added
+        delete temp_3;//new added
     } else {
         char *temp_1 = new char[temp1.size() + 1];
         copy(temp1.begin(), temp1.end(), temp_1);
         temp_1[temp1.size()] = '\0';
         v.push_back(temp_1);
         ptr = &v[0];
+        temp_1 = NULL;//new added
+        delete temp_1;//new added
     }
+    
     pid = fork();
     if(pid == -1) {
         return false;
@@ -325,6 +333,7 @@ bool dir(string temp) {
             return false;
         }*/
         char* temp3 = getenv("OLDPWD");
+        char* temp4 = getenv("PWD");
         if(-1 == setenv("OLDPWD", getenv("PWD"), 1) ) {
             perror("setenv");
             return false;
@@ -337,8 +346,16 @@ bool dir(string temp) {
             oldpwd = getenv("OLDPWD");
             return false;
         } else {
+            if( chdir(getenv("PWD")/*pwd.c_str()*/) == -1 ) {
+                perror("chdir");
+                setenv("OLDPWD", temp3, 1);
+                oldpwd = getenv("OLDPWD");
+                setenv("PWD", temp4, 1);
+                pwd = getenv("PWD");
+                return false;
+            }
             pwd = getenv("PWD");
-            chdir(pwd.c_str());
+            //chdir(pwd.c_str());
         }
         return true;
     }
